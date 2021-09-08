@@ -32,7 +32,7 @@ function Bounds({ width, height, style, children }) {
     </div>
   );
 }
-function Text({ fontFamily, sizeMode, size, children }) {
+function Text({ fontFamily, widthMode, heightMode, size, children }) {
   if (typeof children !== 'string') {
     throw new Error(
       `expected children to be a string but was ${typeof children}`
@@ -40,7 +40,7 @@ function Text({ fontFamily, sizeMode, size, children }) {
   }
   const [width, setWidth] = useState();
   const tweakedFontSize =
-    sizeMode === 'Cap height'
+    heightMode === 'Cap height'
       ? createStyleObject({
           fontMetrics: webSafeFonts[fontFamily],
           capHeight: size
@@ -52,8 +52,14 @@ function Text({ fontFamily, sizeMode, size, children }) {
     const ctx = canvas.getContext('2d');
     ctx.font = `${tweakedFontSize.fontSize} ${fontFamily}`;
     const textMetrics = ctx.measureText(children);
-    setWidth(`${textMetrics.width}px`);
-  }, [fontFamily, sizeMode, size, children]);
+    setWidth(
+      widthMode === 'textMetrics.width'
+        ? `${textMetrics.width}px`
+        : // not recommended due to lack of browser support https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics#browser_compatibility
+          Math.abs(textMetrics.actualBoundingBoxLeft) +
+            Math.abs(textMetrics.actualBoundingBoxRight)
+    );
+  }, [fontFamily, widthMode, heightMode, size, children]);
 
   if (!width) {
     return 'Loading...';
@@ -115,13 +121,18 @@ const webSafeFonts = {
   }
 };
 
-const sizeModes = ['font-size', 'Cap height'];
+const widthModes = [
+  'textMetrics.width',
+  'textMetrics.actualBoundingBox left+right'
+];
+const heightModes = ['font-size', 'Cap height'];
 const sizes = [8, 16, 32, 64, 128];
 
 const App = () => {
   const [text, setText] = useState('Edit me and watch my bounds');
   const [fontFamily, setFontFamily] = useState('Arial');
-  const [sizeMode, setSizeMode] = useState('Cap height');
+  const [widthMode, setwidthMode] = useState('textMetrics.width');
+  const [heightMode, setHeightMode] = useState('Cap height');
   const [size, setSize] = useState(32);
   return (
     <>
@@ -150,15 +161,29 @@ const App = () => {
           </select>
         </label>
         <label>
-          <h2>Size mode</h2>
+          <h2>Width mode</h2>
           <select
-            value={sizeMode}
-            onChange={({ target: { value } }) => setSizeMode(value)}
-            size={sizeModes.length}
+            value={widthMode}
+            onChange={({ target: { value } }) => setWidthMode(value)}
+            size={widthModes.length}
           >
-            {sizeModes.map(sizeMode => (
-              <option key={sizeMode} value={sizeMode}>
-                {sizeMode}
+            {widthModes.map(widthMode => (
+              <option key={widthMode} value={widthMode}>
+                {widthMode}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <h2>Height mode</h2>
+          <select
+            value={heightMode}
+            onChange={({ target: { value } }) => setHeightMode(value)}
+            size={heightModes.length}
+          >
+            {heightModes.map(heightMode => (
+              <option key={heightMode} value={heightMode}>
+                {heightMode}
               </option>
             ))}
           </select>
@@ -179,7 +204,12 @@ const App = () => {
         </label>
       </div>
       <h1>Output</h1>
-      <Text fontFamily={fontFamily} sizeMode={sizeMode} size={size}>
+      <Text
+        fontFamily={fontFamily}
+        widthMode={widthMode}
+        heightMode={heightMode}
+        size={size}
+      >
         {text}
       </Text>
     </>
