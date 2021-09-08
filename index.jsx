@@ -171,7 +171,7 @@ const App = () => {
           </select>
         </label>
         <label>
-          <h2 dangerouslySetInnerHTML={{ _html: '&ZeroWidthSpace;' }} />
+          <h2 dangerouslySetInnerHTML={{ __html: '&ZeroWidthSpace;' }} />
           <select
             value={size}
             onChange={({ target: { value } }) => setSize(value)}
