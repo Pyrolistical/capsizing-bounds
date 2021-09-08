@@ -67,7 +67,8 @@ function Text({ fontFamily, widthMode, heightMode, size, children }) {
 
   const TweakedChildren = styled.span({
     ...tweakedFontSize,
-    fontFamily
+    fontFamily,
+    whiteSpace: 'nowrap'
   });
   return (
     <Bounds width={width} height={`${size}px`}>
