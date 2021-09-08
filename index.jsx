@@ -138,7 +138,7 @@ const App = () => {
   const [size, setSize] = useState(32);
   return (
     <>
-      <h1>Inputs</h1>
+      <h1>Controls</h1>
       <label>
         <h2>Text</h2>
         <input
@@ -205,7 +205,7 @@ const App = () => {
           </select>
         </label>
       </div>
-      <h1>Output</h1>
+      <h1>Calculated bounds</h1>
       <Text
         fontFamily={fontFamily}
         widthMode={widthMode}
