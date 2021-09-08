@@ -78,15 +78,48 @@ const webSafeFonts = {
     lineGap: 67,
     unitsPerEm: 2048
   },
-  'Brush Script MT': {},
-  'Courier New': {},
-  Garamond: {},
-  Georgia: {},
-  Helvetica: {},
-  Tahoma: {},
-  'Times New Roman': {},
-  'Trebuchet MS': {},
-  Verdana: {}
+  'Brush Script MT': {
+    ascent: 1820,
+    descent: -692,
+    lineGap: 0,
+    unitsPerEm: 2048
+  },
+  'Courier New': {
+    capHeight: 1170,
+    ascent: 1705,
+    descent: -615,
+    lineGap: 0,
+    unitsPerEm: 2048
+  },
+  Georgia: {
+    capHeight: 1419,
+    ascent: 1878,
+    descent: -449,
+    lineGap: 0,
+    unitsPerEm: 2048
+  },
+  Tahoma: {
+    capHeight: 1489,
+    ascent: 2049,
+    descent: -423,
+    lineGap: 0,
+    unitsPerEm: 2048
+  },
+  'Times New Roman': {
+    capHeight: 1356,
+    ascent: 1825,
+    descent: -443,
+    lineGap: 87,
+    unitsPerEm: 2048
+  },
+  'Trebuchet MS': { ascent: 1923, descent: -455, lineGap: 0, unitsPerEm: 2048 },
+  Verdana: {
+    capHeight: 1489,
+    ascent: 2059,
+    descent: -430,
+    lineGap: 0,
+    unitsPerEm: 2048
+  }
 };
 
 const sizeModes = ['font-size', 'Cap height'];
@@ -138,8 +171,7 @@ const App = () => {
           </select>
         </label>
         <label>
-          <h2 dangerouslySetInnerHTML='&ZeroWidthSpace;'>
-          </h2>
+          <h2 dangerouslySetInnerHTML={{ _html: '&ZeroWidthSpace;' }} />
           <select
             value={size}
             onChange={({ target: { value } }) => setSize(value)}
