@@ -1,7 +1,7 @@
 import React, { StrictMode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { createStyleObject } from '@capsizecss/core';
-import {css} from '@emotion/react';
+import styled from '@emotion/styled';
 
 function Bounds({ width, height, style, children }) {
   return (
@@ -56,17 +56,13 @@ function Text({ fontFamily, fontSize, capHeight, children }) {
     return 'Loading...';
   }
 
-  
+  const TweakedChildren = styled.span({
+    ...tweakedFontSize,
+    fontFamily
+  });
   return (
-    <Bounds
-      width={width}
-      height={capHeight}
-      style={{
-        fontFamily
-      }}
-      css={css(tweakedFontSize)}
-    >
-      {children}
+    <Bounds width={width} height={capHeight}>
+      <TweakedChildren>{children}</TweakedChildren>
     </Bounds>
   );
 }
@@ -147,7 +143,7 @@ const App = () => {
           >
             {capHeights.map(capHeight => (
               <option key={capHeight} value={capHeight}>
-                {capHeight}
+                {capHeight}px
               </option>
             ))}
           </select>
