@@ -138,7 +138,7 @@ const App = () => {
           </select>
         </label>
         <label>
-          <h2>&nbsp;</h2>
+          <h2>&ZeroWidthSpace;</h2>
           <select
             value={size}
             onChange={({ target: { value } }) => setSize(value)}
