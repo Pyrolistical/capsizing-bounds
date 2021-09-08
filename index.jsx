@@ -31,7 +31,7 @@ function Bounds({ width, height, style, children }) {
     </div>
   );
 }
-function Text({ fontFamily, fontSize, children }) {
+function Text({ fontFamily, fontSize, capHeight, children }) {
   if (typeof children !== 'string') {
     throw new Error(
       `expected children to be a string but was ${typeof children}`
@@ -52,12 +52,12 @@ function Text({ fontFamily, fontSize, children }) {
 
   const tweakedFontSize = createStyleObject({
     fontMetrics: webSafeFonts[fontFamily],
-    capHeight: fontSize
+    capHeight
   });
   return (
     <Bounds
       width={width}
-      height={fontSize}
+      height={capHeight}
       style={{
         fontFamily,
         ...tweakedFontSize
