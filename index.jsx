@@ -32,17 +32,20 @@ function Bounds({ width, height, style, children }) {
     </div>
   );
 }
-function Text({ fontFamily, fontSize, capHeight, children }) {
+function Text({ fontFamily, sizeMode, size, children }) {
   if (typeof children !== 'string') {
     throw new Error(
       `expected children to be a string but was ${typeof children}`
     );
   }
   const [width, setWidth] = useState();
-  const tweakedFontSize = createStyleObject({
-    fontMetrics: webSafeFonts[fontFamily],
-    capHeight
-  });
+  const tweakedFontSize =
+    sizeMode === 'Cap height'
+      ? createStyleObject({
+          fontMetrics: webSafeFonts[fontFamily],
+          capHeight
+        })
+      : { fontSize: `${size}px` };
 
   useEffect(() => {
     const canvas = document.getElementById('canvas');
@@ -61,7 +64,7 @@ function Text({ fontFamily, fontSize, capHeight, children }) {
     fontFamily
   });
   return (
-    <Bounds width={width} height={capHeight}>
+    <Bounds width={width} height={`${size}px`}>
       <TweakedChildren>{children}</TweakedChildren>
     </Bounds>
   );
@@ -86,14 +89,14 @@ const webSafeFonts = {
   Verdana: {}
 };
 
-const fontSizes = ['8px', '16px', '32px', '64px', '128px'];
-const capHeights = [8, 16, 32, 64, 128];
+const sizeModes = ['Font size', 'Cap height'];
+const sizes = [8, 16, 32, 64, 128];
 
 const App = () => {
-  const [fontFamily, setFontFamily] = useState('Arial');
-  const [fontSize, setFontSize] = useState('16px');
-  const [capHeight, setCapHeight] = useState(16);
   const [text, setText] = useState('Edit me and watch my bounds');
+  const [fontFamily, setFontFamily] = useState('Arial');
+  const [sizeMode, setSizeMode] = useState('Cap height');
+  const [size, setSize] = useState(16);
   return (
     <>
       <h1>Inputs</h1>
@@ -121,36 +124,35 @@ const App = () => {
           </select>
         </label>
         <label>
-          <h2>Font size</h2>
+          <h2>Size mode</h2>
           <select
-            value={fontSize}
-            onChange={({ target: { value } }) => setFontSize(value)}
-            size={fontSizes.length}
+            value={sizeModes}
+            onChange={({ target: { value } }) => setSizeMode(value)}
+            size={sizeModes.length}
           >
-            {fontSizes.map(fontSize => (
-              <option key={fontSize} value={fontSize}>
-                {fontSize}
+            {sizeModes.map(sizeMode => (
+              <option key={sizeMode} value={sizeMode}>
+                {sizeMode}
               </option>
             ))}
           </select>
         </label>
         <label>
-          <h2>Cap height</h2>
           <select
-            value={capHeight}
-            onChange={({ target: { value } }) => setCapHeight(value)}
-            size={capHeights.length}
+            value={size}
+            onChange={({ target: { value } }) => setSize(value)}
+            size={sizes.length}
           >
-            {capHeights.map(capHeight => (
-              <option key={capHeight} value={capHeight}>
-                {capHeight}px
+            {sizes.map(size => (
+              <option key={size} value={size}>
+                {size}px
               </option>
             ))}
           </select>
         </label>
       </div>
       <h1>Output</h1>
-      <Text fontFamily={fontFamily} fontSize={fontSize} capHeight={capHeight}>
+      <Text fontFamily={fontFamily} sizeMode={sizeMode} size={size}>
         {text}
       </Text>
     </>
