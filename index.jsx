@@ -69,7 +69,7 @@ function Text({ fontFamily, fontSize, capHeight, children }) {
 
 const webSafeFonts = {
   Arial: {
-    capHeight: 1409,
+    capHeight: 1467,
     ascent: 1854,
     descent: -434,
     lineGap: 67,
@@ -111,7 +111,7 @@ const App = () => {
           <select
             value={fontFamily}
             onChange={({ target: { value } }) => setFontFamily(value)}
-            size={webSafeFonts.length}
+            size={Object.keys(webSafeFonts).length}
           >
             {Object.keys(webSafeFonts).map(webSafeFont => (
               <option key={webSafeFont} value={webSafeFont}>
