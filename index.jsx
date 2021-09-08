@@ -112,7 +112,7 @@ const App = () => {
             onChange={({ target: { value } }) => setFontFamily(value)}
             size={webSafeFonts.length}
           >
-            {webSafeFonts.map(webSafeFont => (
+            {Object.keys(webSafeFonts).map(webSafeFont => (
               <option key={webSafeFont} value={webSafeFont}>
                 {webSafeFont}
               </option>
