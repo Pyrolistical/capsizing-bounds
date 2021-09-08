@@ -78,12 +78,6 @@ const webSafeFonts = {
     lineGap: 67,
     unitsPerEm: 2048
   },
-  'Brush Script MT': {
-    ascent: 1820,
-    descent: -692,
-    lineGap: 0,
-    unitsPerEm: 2048
-  },
   'Courier New': {
     capHeight: 1170,
     ascent: 1705,
@@ -112,7 +106,6 @@ const webSafeFonts = {
     lineGap: 87,
     unitsPerEm: 2048
   },
-  'Trebuchet MS': { ascent: 1923, descent: -455, lineGap: 0, unitsPerEm: 2048 },
   Verdana: {
     capHeight: 1489,
     ascent: 2059,
@@ -129,7 +122,7 @@ const App = () => {
   const [text, setText] = useState('Edit me and watch my bounds');
   const [fontFamily, setFontFamily] = useState('Arial');
   const [sizeMode, setSizeMode] = useState('Cap height');
-  const [size, setSize] = useState(16);
+  const [size, setSize] = useState(32);
   return (
     <>
       <h1>Inputs</h1>
