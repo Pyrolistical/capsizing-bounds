@@ -53,11 +53,13 @@ function Text({ fontFamily, widthMode, heightMode, size, children }) {
     ctx.font = `${tweakedFontSize.fontSize} ${fontFamily}`;
     const textMetrics = ctx.measureText(children);
     setWidth(
-      widthMode === 'textMetrics.width'
-        ? `${textMetrics.width}px`
-        : // not recommended due to lack of browser support https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics#browser_compatibility
-          Math.abs(textMetrics.actualBoundingBoxLeft) +
+      `${
+        widthMode === 'textMetrics.width'
+          ? textMetrics.width
+          : // not recommended due to lack of browser support https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics#browser_compatibility
+            Math.abs(textMetrics.actualBoundingBoxLeft) +
             Math.abs(textMetrics.actualBoundingBoxRight)
+      }px`
     );
   }, [fontFamily, widthMode, heightMode, size, children]);
 
