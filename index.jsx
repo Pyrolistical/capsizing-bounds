@@ -1,0 +1,138 @@
+import React, { StrictMode, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+
+function Bounds({ width, height, style, children }) {
+  return (
+    <div
+      style={{
+        display: 'inline-grid',
+        gridTemplateColumns: '1fr min-content',
+        gridTemplateRows: 'min-content 1fr',
+        gridGap: '5px',
+        placeItems: 'center'
+      }}
+    >
+      <span style={{ alignSelf: 'end' }}>{width}</span>
+      <span />
+      <div
+        style={{
+          ...style,
+          position: 'relative',
+          boxSizing: 'content-box',
+          width,
+          height,
+          border: 'dashed 2px gray'
+        }}
+      >
+        {children}
+      </div>
+      <span style={{ justifySelf: 'start' }}>{height}</span>
+    </div>
+  );
+}
+function Text({ fontFamily, fontSize, children }) {
+  if (typeof children !== 'string') {
+    throw new Error(
+      `expected children to be a string but was ${typeof children}`
+    );
+  }
+  const [width, setWidth] = useState();
+  useEffect(() => {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.font = `${fontSize} ${fontFamily}`;
+    const textMetrics = ctx.measureText(children);
+    setWidth(`${textMetrics.width}px`);
+  }, [fontFamily, fontSize, children]);
+
+  if (!width) {
+    return 'Loading...';
+  }
+  return (
+    <Bounds
+      width={width}
+      height={fontSize}
+      style={{
+        fontFamily,
+        fontSize
+      }}
+    >
+      {children}
+    </Bounds>
+  );
+}
+
+const webSafeFonts = [
+  'Arial',
+  'Brush Script MT',
+  'Courier New',
+  'Garamond',
+  'Georgia',
+  'Helvetica',
+  'Tahoma',
+  'Times New Roman',
+  'Trebuchet MS',
+  'Verdana'
+];
+
+const fontSizes = ['8px', '16px', '32px', '64px', '128px'];
+
+const App = () => {
+  const [fontFamily, setFontFamily] = useState('Helvetica');
+  const [fontSize, setFontSize] = useState('16px');
+  const [text, setText] = useState('Edit me and watch my bounds');
+  return (
+    <>
+      <h1>Inputs</h1>
+      <label>
+        <h2>Text</h2>
+        <input
+          type="text"
+          value={text}
+          onChange={({ target: { value } }) => setText(value)}
+        />
+      </label>
+      <div id="inputs">
+        <label>
+          <h2>Font family</h2>
+          <select
+            value={fontFamily}
+            onChange={({ target: { value } }) => setFontFamily(value)}
+            size={webSafeFonts.length}
+          >
+            {webSafeFonts.map(webSafeFont => (
+              <option key={webSafeFont} value={webSafeFont}>
+                {webSafeFont}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <h2>Font size</h2>
+          <select
+            value={fontSize}
+            onChange={({ target: { value } }) => setFontSize(value)}
+            size={fontSizes.length}
+          >
+            {fontSizes.map(fontSize => (
+              <option key={fontSize} value={fontSize}>
+                {fontSize}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <h1>Output</h1>
+      <Text fontFamily={fontFamily} fontSize={fontSize}>
+        {text}
+      </Text>
+    </>
+  );
+};
+
+ReactDOM.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.getElementById('root')
+);

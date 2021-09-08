@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Capsizing bounds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+
+  <style>
+    html {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      -webkit-box-sizing: inherit;
+      -moz-box-sizing: inherit;
+      box-sizing: inherit;
+    }
+
+    #canvas {
+      display: none;
+    }
+
+    #root {
+      padding-left: 10px;
+    }
+
+    #inputs {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    label {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    }
+
+    label h2 {
+      margin-top: 0;
+      margin-right: 5px;
+    }
+
+    label:not(:first-of-type) {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <script type="module" src="/index.js"></script>
+  <canvas id="canvas"></canvas>
+  <div id="root"></div>
+</body>
+
+</html>
