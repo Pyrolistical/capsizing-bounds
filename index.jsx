@@ -131,7 +131,7 @@ const sizes = [8, 16, 32, 64, 128];
 const App = () => {
   const [text, setText] = useState('Edit me and watch my bounds');
   const [fontFamily, setFontFamily] = useState('Arial');
-  const [widthMode, setwidthMode] = useState('textMetrics.width');
+  const [widthMode, setidthMode] = useState('textMetrics.width');
   const [heightMode, setHeightMode] = useState('Cap height');
   const [size, setSize] = useState(32);
   return (
