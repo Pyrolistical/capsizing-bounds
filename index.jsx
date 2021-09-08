@@ -77,6 +77,7 @@ function Text({ fontFamily, widthMode, heightMode, size, children }) {
   );
 }
 
+// font metrics pulled from https://seek-oss.github.io/capsize/
 const webSafeFonts = {
   Arial: {
     capHeight: 1467,
