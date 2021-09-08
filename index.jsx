@@ -54,6 +54,7 @@ function Text({ fontFamily, fontSize, capHeight, children }) {
     fontMetrics: webSafeFonts[fontFamily],
     capHeight
   });
+  console.log({ tweakedFontSize });
   return (
     <Bounds
       width={width}
