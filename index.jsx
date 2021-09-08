@@ -89,7 +89,7 @@ const webSafeFonts = {
   Verdana: {}
 };
 
-const sizeModes = ['Font size', 'Cap height'];
+const sizeModes = ['font-size', 'Cap height'];
 const sizes = [8, 16, 32, 64, 128];
 
 const App = () => {
@@ -139,7 +139,7 @@ const App = () => {
         </label>
         <label>
           <h2>
-            <>&ZeroWidthSpace;</>
+            {'&ZeroWidthSpace;'}
           </h2>
           <select
             value={size}
