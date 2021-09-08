@@ -1,4 +1,4 @@
-tweakedFontSizeimport React, { StrictMode, useEffect, useState } from 'react';
+import React, { StrictMode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { createStyleObject } from '@capsizecss/core';
 import {css} from '@emotion/react';
