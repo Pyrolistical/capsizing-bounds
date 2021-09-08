@@ -1,5 +1,6 @@
 import React, { StrictMode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { createStyleObject } from '@capsizecss/core';
 
 function Bounds({ width, height, style, children }) {
   return (
@@ -48,13 +49,18 @@ function Text({ fontFamily, fontSize, children }) {
   if (!width) {
     return 'Loading...';
   }
+
+  const tweakedFontSize = createStyleObject({
+    fontMetrics: webSafeFonts[fontFamily],
+    capHeight: fontSize
+  });
   return (
     <Bounds
       width={width}
       height={fontSize}
       style={{
         fontFamily,
-        fontSize
+        ...tweakedFontSize
       }}
     >
       {children}
@@ -62,23 +68,29 @@ function Text({ fontFamily, fontSize, children }) {
   );
 }
 
-const webSafeFonts = [
-  'Arial',
-  'Brush Script MT',
-  'Courier New',
-  'Garamond',
-  'Georgia',
-  'Helvetica',
-  'Tahoma',
-  'Times New Roman',
-  'Trebuchet MS',
-  'Verdana'
-];
+const webSafeFonts = {
+  Arial: {
+    capHeight: 1409,
+    ascent: 1854,
+    descent: -434,
+    lineGap: 67,
+    unitsPerEm: 2048
+  },
+  'Brush Script MT': {},
+  'Courier New': {},
+  Garamond: {},
+  Georgia: {},
+  Helvetica: {},
+  Tahoma: {},
+  'Times New Roman': {},
+  'Trebuchet MS': {},
+  Verdana: {}
+};
 
 const fontSizes = ['8px', '16px', '32px', '64px', '128px'];
 
 const App = () => {
-  const [fontFamily, setFontFamily] = useState('Helvetica');
+  const [fontFamily, setFontFamily] = useState('Arial');
   const [fontSize, setFontSize] = useState('16px');
   const [text, setText] = useState('Edit me and watch my bounds');
   return (
