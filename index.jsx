@@ -126,7 +126,7 @@ const App = () => {
         <label>
           <h2>Size mode</h2>
           <select
-            value={sizeModes}
+            value={sizeMode}
             onChange={({ target: { value } }) => setSizeMode(value)}
             size={sizeModes.length}
           >
