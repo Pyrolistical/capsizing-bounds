@@ -88,10 +88,12 @@ const webSafeFonts = {
 };
 
 const fontSizes = ['8px', '16px', '32px', '64px', '128px'];
+const capHeights = [8, 16, 32, 64, 128];
 
 const App = () => {
   const [fontFamily, setFontFamily] = useState('Arial');
   const [fontSize, setFontSize] = useState('16px');
+  const [capHeight, setCapHeight] = useState(16);
   const [text, setText] = useState('Edit me and watch my bounds');
   return (
     <>
@@ -133,9 +135,23 @@ const App = () => {
             ))}
           </select>
         </label>
+        <label>
+          <h2>Cap height</h2>
+          <select
+            value={capHeight}
+            onChange={({ target: { value } }) => setCapHeight(value)}
+            size={capHeights.length}
+          >
+            {capHeights.map(capHeight => (
+              <option key={capHeight} value={capHeight}>
+                {capHeight}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
       <h1>Output</h1>
-      <Text fontFamily={fontFamily} fontSize={fontSize}>
+      <Text fontFamily={fontFamily} fontSize={fontSize} capHeight={capHeight}>
         {text}
       </Text>
     </>
