@@ -138,8 +138,7 @@ const App = () => {
           </select>
         </label>
         <label>
-          <h2>
-            {'&ZeroWidthSpace;'}
+          <h2 dangerouslySetInnerHTML='&ZeroWidthSpace;'>
           </h2>
           <select
             value={size}
