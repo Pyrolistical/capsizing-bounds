@@ -1,6 +1,7 @@
-import React, { StrictMode, useEffect, useState } from 'react';
+tweakedFontSizeimport React, { StrictMode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { createStyleObject } from '@capsizecss/core';
+import {css} from '@emotion/react';
 
 function Bounds({ width, height, style, children }) {
   return (
@@ -38,31 +39,32 @@ function Text({ fontFamily, fontSize, capHeight, children }) {
     );
   }
   const [width, setWidth] = useState();
+  const tweakedFontSize = createStyleObject({
+    fontMetrics: webSafeFonts[fontFamily],
+    capHeight
+  });
+
   useEffect(() => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    ctx.font = `${fontSize} ${fontFamily}`;
+    ctx.font = `${tweakedFontSize.fontSize} ${fontFamily}`;
     const textMetrics = ctx.measureText(children);
     setWidth(`${textMetrics.width}px`);
-  }, [fontFamily, fontSize, children]);
+  }, [fontFamily, capHeight, children]);
 
   if (!width) {
     return 'Loading...';
   }
 
-  const tweakedFontSize = createStyleObject({
-    fontMetrics: webSafeFonts[fontFamily],
-    capHeight
-  });
-  console.log({ tweakedFontSize });
+  
   return (
     <Bounds
       width={width}
       height={capHeight}
       style={{
-        fontFamily,
-        ...tweakedFontSize
+        fontFamily
       }}
+      css={css(tweakedFontSize)}
     >
       {children}
     </Bounds>
