@@ -53,7 +53,7 @@ function Text({ fontFamily, sizeMode, size, children }) {
     ctx.font = `${tweakedFontSize.fontSize} ${fontFamily}`;
     const textMetrics = ctx.measureText(children);
     setWidth(`${textMetrics.width}px`);
-  }, [fontFamily, size, children]);
+  }, [fontFamily, sizeMode, size, children]);
 
   if (!width) {
     return 'Loading...';
@@ -138,7 +138,9 @@ const App = () => {
           </select>
         </label>
         <label>
-          <h2>&ZeroWidthSpace;</h2>
+          <h2>
+            <>&ZeroWidthSpace;</>
+          </h2>
           <select
             value={size}
             onChange={({ target: { value } }) => setSize(value)}
