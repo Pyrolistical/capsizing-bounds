@@ -132,7 +132,7 @@ const sizes = [8, 16, 32, 64, 128];
 
 const App = () => {
   const [text, setText] = useState('Edit me and watch my bounds');
-  const [fontFamily, setFontFamily] = useState('Arial');
+  const [fontFamily, setFontFamily] = useState('Tahoma');
   const [widthMode, setWidthMode] = useState('textMetrics.width');
   const [heightMode, setHeightMode] = useState('Cap height');
   const [size, setSize] = useState(32);
