@@ -43,7 +43,7 @@ function Text({ fontFamily, sizeMode, size, children }) {
     sizeMode === 'Cap height'
       ? createStyleObject({
           fontMetrics: webSafeFonts[fontFamily],
-          capHeight
+          capHeight: size
         })
       : { fontSize: `${size}px` };
 
@@ -53,7 +53,7 @@ function Text({ fontFamily, sizeMode, size, children }) {
     ctx.font = `${tweakedFontSize.fontSize} ${fontFamily}`;
     const textMetrics = ctx.measureText(children);
     setWidth(`${textMetrics.width}px`);
-  }, [fontFamily, capHeight, children]);
+  }, [fontFamily, size, children]);
 
   if (!width) {
     return 'Loading...';
