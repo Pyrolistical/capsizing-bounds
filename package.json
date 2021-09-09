@@ -1,6 +1,6 @@
 {
-  "name": "node-starter",
-  "version": "0.0.0",
+  "name": "capsizing-bounds",
+  "private": true,
   "scripts": {
     "start": "snowpack dev"
   },
