@@ -1,7 +1,6 @@
 import React, { StrictMode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { createStyleObject } from '@capsizecss/core';
-import styled from '@emotion/styled';
 
 function Bounds({ width, height, style, children }) {
   return (
@@ -45,7 +44,7 @@ function Text({ fontFamily, widthMode, heightMode, size, children }) {
           fontMetrics: webSafeFonts[fontFamily],
           capHeight: size
         })
-      : { fontSize: `${size}px` };
+      : { fontSize: `${size}px`, lineHeight: 'normal' };
 
   useEffect(() => {
     const canvas = document.getElementById('canvas');
@@ -64,15 +63,33 @@ function Text({ fontFamily, widthMode, heightMode, size, children }) {
   if (!width) {
     return 'Loading...';
   }
+  const Before = () =>
+    tweakedFontSize['::before'] ? (
+      <div style={tweakedFontSize['::before']} />
+    ) : (
+      <></>
+    );
+  const After = () =>
+    tweakedFontSize['::after'] ? (
+      <div style={tweakedFontSize['::after']} />
+    ) : (
+      <></>
+    );
 
-  const TweakedChildren = styled.span({
-    ...tweakedFontSize,
-    fontFamily,
-    whiteSpace: 'nowrap'
-  });
   return (
     <Bounds width={`${width}px`} height={`${size}px`}>
-      <TweakedChildren>{children}</TweakedChildren>
+      <span
+        style={{
+          fontFamily,
+          fontSize: tweakedFontSize.fontSize,
+          lineHeight: tweakedFontSize.lineHeight,
+          whiteSpace: 'nowrap'
+        }}
+      >
+        <Before />
+        {children}
+        <After />
+      </span>
     </Bounds>
   );
 }
