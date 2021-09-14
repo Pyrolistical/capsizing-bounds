@@ -155,6 +155,12 @@ const App = () => {
   const [size, setSize] = useState(32);
   return (
     <>
+      <p>
+        <a href="https://blog.battlefy.com/the-strangely-difficult-problem-of-drawing-a-box-around-text-e6a70bdf6bb9">
+          Read blogpost
+        </a>{' '}
+        for full details.
+      </p>
       <h1>Controls</h1>
       <label>
         <h2>Text</h2>
