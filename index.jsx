@@ -156,7 +156,10 @@ const App = () => {
   return (
     <>
       <p>
-        <a href="https://blog.battlefy.com/the-strangely-difficult-problem-of-drawing-a-box-around-text-e6a70bdf6bb9">
+        <a
+          href="https://blog.battlefy.com/the-strangely-difficult-problem-of-drawing-a-box-around-text-e6a70bdf6bb9"
+          target="_blank"
+        >
           Read blogpost
         </a>{' '}
         for full details.
